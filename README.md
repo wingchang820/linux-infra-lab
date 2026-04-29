@@ -46,7 +46,7 @@ Experienced in large enterprise legacy systems, batch operations, reverse engine
 
 ## Documents ｜ 文件
 
-Detailed notes will be added in `/docs`
+Detailed notes are available in '/docs'
 
 詳細過程將整理於 `/docs`
 
