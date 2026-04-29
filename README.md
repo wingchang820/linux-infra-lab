@@ -56,3 +56,5 @@ Detailed notes are available in '/docs'
 
 Wing  
 Transitioning to Linux / Infrastructure / DevOps
+
+Last updated locally via VS Code on Day 1.
