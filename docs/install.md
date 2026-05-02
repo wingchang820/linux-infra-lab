@@ -19,6 +19,15 @@ Recommended VM settings:
 - Network Adapter 1: NAT
 - Network Adapter 2: Host-only
 
+## Planned VM Names
+
+- server1
+- server2
+
+## Hypervisor
+
+TBD
+
 ## Purpose
 
 The goal is to simulate a small Linux infrastructure environment for practicing system administration, SSH,firewall, networking, and service deployment.
