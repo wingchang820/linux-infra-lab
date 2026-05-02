@@ -1,5 +1,24 @@
 # Installation Notes
 
-This document records VM setup and environment initialization.
+## Lab Environment
 
-本文件記錄 VM 建置與環境初始化流程。
+This lab uses two Rocky Linux virtual machines.
+
+| Hostname |       Role         |       OS    |
+|----------|--------------------|-------------|
+| server1  | Admin / Web Server | Rocky Linux |
+| server2  | Client / Test Node | Rocky Linux |
+
+## VM Plan
+
+Recommended VM settings:
+
+- CPU: 2 cores
+- Memory: 2GB - 4GB
+- Disk: 30GB - 40GB
+- Network Adapter 1: NAT
+- Network Adapter 2: Host-only
+
+## Purpose
+
+The goal is to simulate a small Linux infrastructure environment for practicing system administration, SSH,firewall, networking, and service deployment.
