@@ -22,10 +22,10 @@ This lab uses two network adapters on each virtual machine.
 
 ## Current Hosts
 
-| Hostname | Role               | NAT IP          | Host-only IP    |
-|----------|--------------------|-----------------|-----------------|
-| server1  | Admin / Web Server | 192.168.126.128 | 192.168.132.129 |
-| server2  | Client / Test Node | 192.168.126.129 | 192.168.132.130 |
+| Hostname | Role               | NAT IP          | Host-only IP   |
+|----------|--------------------|-----------------|----------------|
+| server1  | Admin / Web Server | 192.168.126.128 | 192.168.132.10 |
+| server2  | Client / Test Node | 192.168.126.129 | 192.168.132.20 |
 
 ---
 
@@ -36,15 +36,14 @@ This lab uses two network adapters on each virtual machine.
 | Interface | Purpose   | IP Address      |
 |-----------|-----------|-----------------|
 | ens160    | NAT       | 192.168.126.128 |
-| ens224    | Host-only | 192.168.132.129 |
+| ens224    | Host-only | 192.168.132.10  |
 
 ### server2
 
 | Interface | Purpose   | IP Address      |
 |-----------|-----------|-----------------|
 | ens160    | NAT       | 192.168.126.129 |
-| ens224    | Host-only | 192.168.132.130 |
-
+| ens224    | Host-only | 192.168.132.20  |
 ---
 
 ## SSH Validation
