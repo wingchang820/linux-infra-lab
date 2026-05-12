@@ -1,44 +1,99 @@
-# Firewall Baseline
+# Service Operations
 
 ## Purpose
 
-This lab demonstrates basic Linux firewall management using firewalld on Rocky Linux.
-
-The goal is to validate controlled SSH access through the internal management network.
+This document records Linux service deployment, validation, and operational management within the lab environment.
 
 ---
 
-## Firewall Validation
+# Nginx Web Service
 
-Validation commands:
+## Overview
+
+Nginx was deployed on server1 as the initial web service for validating Linux service management and internal network connectivity.
+
+---
+
+## Environment
+
+| Host | Role | Management IP |
+|---|---|---|
+| server1 | Web Service Host | 192.168.132.10 |
+| server2 | Admin / Test Node | 192.168.132.20 |
+
+---
+
+## Service Installation
+
+Package installation:
 
 ```bash
-firewall-cmd --get-active-zones
-firewall-cmd --list-all
-firewall-cmd --query-service=ssh
+dnf install -y nginx
+```
+
+Service enable and startup:
+
+```bash
+systemctl enable --now nginx
+```
+
+---
+
+## Service Validation
+
+Check service status:
+
+```bash
+systemctl status nginx
 ```
 
 Expected result:
 
 ```text
-yes
+active (running)
 ```
 
 ---
 
-## SSH Validation
+## Firewall Integration
 
-SSH access from server2 to server1 was validated through the host-only management network.
+HTTP service was allowed through firewalld.
+
+Validation command:
 
 ```bash
-ssh server1
+firewall-cmd --list-all
+```
+
+Expected result:
+
+```text
+services: ssh http
+```
+
+---
+
+## Connectivity Validation
+
+Validate service access from server2:
+
+```bash
+curl -I http://server1
+```
+
+Expected result:
+
+```text
+HTTP/1.1 200 OK
+Server: nginx
 ```
 
 ---
 
 ## Operations Notes
 
-- firewalld is enabled on server1
-- SSH is allowed through the firewall
-- Host-only network is used as the management network
-- Management access is separated from internet access
+- nginx is hosted on server1
+- server2 is used as the validation node
+- Host-only network is used for internal service validation
+- firewalld controls HTTP access
+- systemctl is used for service lifecycle management
