@@ -42,20 +42,22 @@ systemctl reload nginx
 
 ---
 
-## Health Check Script
+## Health Check Automation
 
-Basic service health check automation:
+Basic health check automation was implemented with a custom bash script.
 
 ```bash
 scripts/check-nginx.sh
 ```
 
-Validation scope:
+The script validates:
 
-- service status
+- nginx service status
 - HTTP response
 - log output
 - exit code handling
+
+Scheduled validation can be configured with cron.
 
 ---
 
