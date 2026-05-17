@@ -2,35 +2,29 @@
 
 ## Nginx Web Service
 
-Nginx was deployed on server1 to validate Linux service management and internal network connectivity.
+Nginx was deployed on server1 for Linux service validation and internal connectivity testing.
 
 ---
 
-## Service Management
-
-Install nginx:
+## Service Deployment
 
 ```bash
 dnf install -y nginx
-```
-
-Enable and start service:
-
-```bash
 systemctl enable --now nginx
 ```
 
-Check service status:
+---
+
+## Service Validation
 
 ```bash
 systemctl status nginx
+curl -I http://server1
 ```
 
 ---
 
 ## Firewall Integration
-
-Allow HTTP service through firewalld:
 
 ```bash
 firewall-cmd --add-service=http --permanent
@@ -39,29 +33,29 @@ firewall-cmd --reload
 
 ---
 
-## Service Validation
-
-Validate connectivity from server2:
+## Configuration Management
 
 ```bash
-curl -I http://server1
+nginx -t
+systemctl reload nginx
 ```
 
 ---
 
-## Configuration Validation
+## Health Check Script
 
-Validate nginx configuration before reload:
-
-```bash
-nginx -t
-```
-
-Reload nginx configuration:
+Basic service health check automation:
 
 ```bash
-systemctl reload nginx
+scripts/check-nginx.sh
 ```
+
+Validation scope:
+
+- service status
+- HTTP response
+- log output
+- exit code handling
 
 ---
 
@@ -69,6 +63,6 @@ systemctl reload nginx
 
 - server1 hosts nginx service
 - server2 is used for validation
-- firewalld controls HTTP access
-- nginx configuration should be validated before reload
+- firewalld manages HTTP access
+- configuration should be validated before reload
 - reload is preferred over restart when possible
