@@ -2,7 +2,7 @@
 
 Hands-on Linux infrastructure project built for my transition from COBOL / Mainframe systems to Linux / Infrastructure / DevOps engineering.
 
-Linux 實作型基礎架構作品集，用於展示我從 COBOL / Mainframe 轉型至 Linux / Infra / DevOps 的能力。
+Linux 實作型基礎架構作品集，用於展示我從 COBOL / Mainframe 轉型至 Linux / Infrastructure / DevOps 的能力。
 
 ---
 
@@ -21,8 +21,12 @@ Experienced in large enterprise legacy systems, batch operations, reverse engine
 - User / Group / sudo
 - Firewall (firewalld)
 - Web Service Deployment
-- Networking Basics
+- Service Validation
+- Health Check Automation
+- Scheduled Tasks (cron)
+- Log Rotation (logrotate)
 - Troubleshooting
+- Networking Basics
 
 ---
 
@@ -35,26 +39,44 @@ Experienced in large enterprise legacy systems, batch operations, reverse engine
 
 ---
 
-## Progress ｜ 進度
+## Current Capabilities ｜ 目前能力
 
-- [x] Day 1: Repository initialized
-- [ ] Day 2: Build VM environment
-- [ ] Day 3: Configure SSH
-- [ ] Day 4: Web service deployment
+- Multi-VM Rocky Linux environment
+- NAT + Host-only infrastructure network
+- Static IP management
+- SSH key authentication
+- Internal hostname resolution
+- firewalld service control
+- Nginx web service deployment
+- Health check automation
+- Scheduled validation with cron
+- Log maintenance with logrotate
+- Basic troubleshooting workflow
+
+---
+
+## Repository Structure ｜ 專案結構
+
+```text
+linux-infra-lab
+├─ docs
+├─ scripts
+├─ screenshots
+└─ README.md
+```
 
 ---
 
 ## Documents ｜ 文件
 
-Detailed notes are available in '/docs'
+Detailed documentation is available in `/docs`
 
-詳細過程將整理於 `/docs`
+詳細內容整理於 `/docs`
 
 ---
 
 ## Author
 
-Wing  
-Transitioning to Linux / Infrastructure / DevOps
+Wing
 
-Last updated locally via VS Code on Day 1.
+Transitioning from Mainframe systems to Linux / Infrastructure / DevOps engineering.
