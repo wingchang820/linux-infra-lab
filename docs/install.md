@@ -47,25 +47,29 @@ Recommended settings for each VM:
 
 ## Infrastructure Components
 
-Current lab components:
+Current lab environment includes:
 
 - Rocky Linux 10.1 virtual machines
-- Multi-host environment
+- Multi-host infrastructure environment
 - NAT and host-only network design
 - Static IP management network
 - SSH key authentication
 - Hostname-based SSH management
 - firewalld security baseline
+- Nginx service deployment
+- Health check automation
+- Scheduled validation with cron
+- Log maintenance with logrotate
 
 ---
 
-## Operations Goals
+## Validation Scope
 
-This lab is designed to simulate a small Linux infrastructure environment focused on:
+The environment is used for validating:
 
 - Linux server management
 - Infrastructure operations
-- Service validation
+- Service deployment workflows
 - Security baseline configuration
 - Troubleshooting workflows
 - Basic automation practices
