@@ -1,14 +1,14 @@
 # Troubleshooting Notes
 
-## Nginx Service Validation
+## Nginx Service Validation Failure
 
 ### Scenario
 
-(Day9) Nginx service became unavailable during validation testing.
+Nginx service became unavailable during internal service validation.
 
 ---
 
-### Investigation Flow
+## Investigation Workflow
 
 Check service status:
 
@@ -16,7 +16,7 @@ Check service status:
 systemctl status nginx
 ```
 
-Review service logs:
+Review recent service logs:
 
 ```bash
 journalctl -u nginx --no-pager -n 20
@@ -30,7 +30,7 @@ curl -I http://server1
 
 ---
 
-### Recovery
+## Recovery Workflow
 
 Restart nginx service:
 
@@ -38,9 +38,23 @@ Restart nginx service:
 systemctl start nginx
 ```
 
+Re-check service status:
+
+```bash
+systemctl status nginx
+```
+
+Re-validate HTTP response:
+
+```bash
+curl -I http://server1
+```
+
 ---
 
-### Validation Result
+## Validation Result
+
+Expected response:
 
 ```text
 HTTP/1.1 200 OK
@@ -49,10 +63,11 @@ Server: nginx
 
 ---
 
-### Operations Notes
+## Operations Notes
 
 - Validate services from another host whenever possible
 - Check service status before modifying configurations
 - Use journalctl for service log analysis
+- Re-validate services after recovery actions
 - Follow a consistent troubleshooting workflow:
   validation → investigation → recovery → re-validation
