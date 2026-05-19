@@ -50,14 +50,26 @@ Basic health check automation was implemented with a custom bash script.
 scripts/check-nginx.sh
 ```
 
-The script validates:
+Validation scope:
 
-- nginx service status
+- service status
 - HTTP response
 - log output
 - exit code handling
 
-Scheduled validation can be configured with cron.
+Scheduled validation is configured with cron.
+
+---
+
+## Log Maintenance
+
+Health check logs are maintained with logrotate.
+
+```bash
+/etc/logrotate.d/nginx-health
+```
+
+Log rotation is used to prevent uncontrolled log growth during scheduled monitoring.
 
 ---
 
@@ -68,3 +80,4 @@ Scheduled validation can be configured with cron.
 - firewalld manages HTTP access
 - configuration should be validated before reload
 - reload is preferred over restart when possible
+- scheduled monitoring requires log maintenance
