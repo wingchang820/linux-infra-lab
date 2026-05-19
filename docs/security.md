@@ -1,99 +1,93 @@
-# Service Operations
+# Security Baseline
 
 ## Purpose
 
-This document records Linux service deployment, validation, and operational management within the lab environment.
+This document records the baseline security configuration used within the lab environment.
+
+此文件記錄 Lab 環境中的基礎安全設定。
 
 ---
 
-# Nginx Web Service
+## SSH Security
 
-## Overview
+SSH management is configured through the host-only management network.
 
-Nginx was deployed on server1 as the initial web service for validating Linux service management and internal network connectivity.
+Implemented controls:
 
----
+- SSH key authentication
+- ED25519 key pair
+- Passwordless SSH access
+- Hostname-based SSH management
 
-## Environment
-
-| Host | Role | Management IP |
-|---|---|---|
-| server1 | Web Service Host | 192.168.132.10 |
-| server2 | Admin / Test Node | 192.168.132.20 |
-
----
-
-## Service Installation
-
-Package installation:
+Example:
 
 ```bash
-dnf install -y nginx
-```
-
-Service enable and startup:
-
-```bash
-systemctl enable --now nginx
+ssh server1
+ssh server2
 ```
 
 ---
 
-## Service Validation
+## Hostname Resolution
 
-Check service status:
+Internal hostname resolution is configured through:
 
 ```bash
-systemctl status nginx
+/etc/hosts
 ```
 
-Expected result:
-
-```text
-active (running)
-```
+This improves SSH operational workflow inside the management network.
 
 ---
 
-## Firewall Integration
+## Firewall Configuration
 
-HTTP service was allowed through firewalld.
+firewalld is used as the baseline firewall solution.
 
-Validation command:
+Example validation:
 
 ```bash
 firewall-cmd --list-all
 ```
 
-Expected result:
+Configured services:
 
 ```text
-services: ssh http
+ssh
+http
 ```
 
 ---
 
-## Connectivity Validation
+## Management Network Security
 
-Validate service access from server2:
+The host-only network is used for:
+
+- internal SSH management
+- infrastructure communication
+- service validation
+
+This separates management traffic from external internet access.
+
+---
+
+## Service Access Control
+
+HTTP access is controlled through firewalld.
+
+Example:
 
 ```bash
-curl -I http://server1
-```
-
-Expected result:
-
-```text
-HTTP/1.1 200 OK
-Server: nginx
+firewall-cmd --add-service=http --permanent
+firewall-cmd --reload
 ```
 
 ---
 
 ## Operations Notes
 
-- nginx is hosted on server1
-- server2 is used as the validation node
-- Host-only network is used for internal service validation
-- firewalld controls HTTP access
-- systemctl is used for service lifecycle management
+- SSH management uses the host-only network
+- Key-based authentication reduces password exposure
+- firewalld manages service access control
+- Internal hostname resolution improves operational efficiency
+- Management traffic is separated from external connectivity
