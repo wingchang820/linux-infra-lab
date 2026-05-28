@@ -2,33 +2,35 @@
 
 ## Validation Goal
 
-Validate Docker Engine installation and deploy first containerized nginx service.
+Validate Docker Engine installation and deploy the first containerized nginx service within the infrastructure lab environment.
 
 ---
 
 ## Environment
 
-* Host: server1
-* OS: Rocky Linux 10.1
-* Container Runtime: Docker Engine Community Edition
+| Component | Value            |
+| --------- | ---------------- |
+| Host      | server1          |
+| OS        | Rocky Linux 10.1 |
+| Runtime   | Docker Engine CE |
 
 ---
 
-## Docker Installation
+# Docker Engine Installation
 
-### Install Docker Repository
+## Install Docker Repository
 
 ```bash
 sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
 ```
 
-### Install Docker Engine
+## Install Docker Engine
 
 ```bash
 sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-### Enable Docker Service
+## Enable Docker Service
 
 ```bash
 sudo systemctl enable --now docker
@@ -36,37 +38,44 @@ sudo systemctl enable --now docker
 
 ---
 
-## Runtime Validation
+# Runtime Validation
 
-### Verify Docker Engine
+## Verify Docker Engine
 
 ```bash
 docker version
 ```
 
-### Test Docker Runtime
+## Test Docker Runtime
 
 ```bash
 docker run hello-world
 ```
 
-Validation Result:
+## Validate Downloaded Images
+
+```bash
+docker images
+```
+
+## Validation Result
 
 * Docker daemon operational
-* Image pull successful
-* Container lifecycle validated
+* image download successful
+* container runtime functional
+* local image cache available
 
 ---
 
-## Nginx Container Deployment
+# Nginx Container Deployment
 
-### Pull nginx Image
+## Pull nginx Image
 
 ```bash
 docker pull nginx
 ```
 
-### Run nginx Container
+## Deploy nginx Container
 
 ```bash
 docker run -d --name web1 -p 8080:80 nginx
@@ -74,21 +83,21 @@ docker run -d --name web1 -p 8080:80 nginx
 
 ---
 
-## Container Validation
+# Container Validation
 
-### Verify Running Container
+## Verify Running Container
 
 ```bash
 docker ps
 ```
 
-### HTTP Validation
+## HTTP Validation
 
 ```bash
 curl localhost:8080
 ```
 
-### Cross-Host Validation
+## Cross-Host Validation
 
 From server2:
 
@@ -96,46 +105,55 @@ From server2:
 curl 192.168.132.10:8080
 ```
 
-Validation Result:
+## Validation Result
 
-* nginx container reachable from external host
+* nginx container reachable locally
+* cross-host HTTP validation successful
 * Docker port mapping operational
-* HTTP response successful
+* containerized web service accessible from external host
 
 ---
 
-## Container Lifecycle Operations
+# Container Lifecycle Operations
 
-### View Logs
+## View Container Logs
 
 ```bash
 docker logs web1
 ```
 
-### Stop Container
+## Stop Container
 
 ```bash
 docker stop web1
 ```
 
-### Start Container
+## Validate Container State
+
+```bash
+docker ps -a
+```
+
+## Validation Result
+
+* stopped container state visible
+* exited container lifecycle validated
+
+## Start Container
 
 ```bash
 docker start web1
 ```
 
-### Remove Old Container
-
-```bash
-docker rm vigorous_goldwasser
-```
-
 ---
 
-## Operations Notes
+# Operations Notes
 
 * Docker images act as reusable templates
-* Containers are running instances created from images
-* Port mapping forwards host traffic into container services
-* Containerized services can be validated across hosts
-* Docker containers are disposable runtime objects
+* containers are runtime instances created from images
+* multiple containers can be created from the same image
+* port mapping forwards host traffic into container services
+* containerized services can be validated across hosts
+* containers are designed to be disposable runtime objects
+* Docker enables repeatable service deployment
+* containerized services can be recreated consistently across environments
