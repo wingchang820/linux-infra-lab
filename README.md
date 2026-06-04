@@ -16,42 +16,79 @@ Experienced in large enterprise legacy systems, batch operations, reverse engine
 
 ## Skills Demonstrated ｜ 展示技能
 
-- Linux Administration
-- SSH
-- User / Group / sudo
-- Firewall (firewalld)
-- Web Service Deployment
-- Service Validation
-- Health Check Automation
-- Scheduled Tasks (cron)
-- Log Rotation (logrotate)
-- Troubleshooting
-- Networking Basics
+* Linux Administration
+* SSH
+* User / Group / sudo
+* Firewall Management (firewalld)
+* Networking Fundamentals
+* Service Management
+* Web Service Deployment
+* Service Validation
+* Health Check Automation
+* Scheduled Tasks (cron)
+* Log Rotation (logrotate)
+* Docker
+* Docker Compose
+* Reverse Proxy
+* Container Health Monitoring
+* Troubleshooting
 
 ---
 
 ## Planned Architecture ｜ 架構
 
-- server1 : Admin / Web Server
-- server2 : Client / Test Node
-- Rocky Linux x2
-- NAT + Host-only Network
+* server1 : Admin / Web Server
+* server2 : Client / Test Node
+* Rocky Linux x2
+* NAT + Host-only Network
 
 ---
 
 ## Current Capabilities ｜ 目前能力
 
-- Multi-VM Rocky Linux environment
-- NAT + Host-only infrastructure network
-- Static IP management
-- SSH key authentication
-- Internal hostname resolution
-- firewalld service control
-- Nginx web service deployment
-- Health check automation
-- Scheduled validation with cron
-- Log maintenance with logrotate
-- Basic troubleshooting workflow
+### Infrastructure
+
+* Multi-VM Rocky Linux environment
+* NAT + Host-only network design
+* Static IP management
+* Internal hostname resolution
+* SSH key authentication
+
+### System Administration
+
+* User and group management
+* sudo privilege delegation
+* firewalld service control
+* Service lifecycle management
+
+### Web Services
+
+* Nginx web service deployment
+* Service validation and troubleshooting
+* Automated health check scripts
+* Scheduled monitoring with cron
+* Log maintenance with logrotate
+
+### Container Platform
+
+* Docker Engine installation
+* Container lifecycle operations
+* Docker image management
+* Docker Compose deployment
+* Multi-container architecture
+
+### Traffic Management
+
+* Nginx Reverse Proxy
+* Proxy-to-backend routing
+* Cross-host service validation
+
+### Monitoring
+
+* Container health checks
+* Healthy / unhealthy state validation
+* Docker health inspection
+* Service availability monitoring
 
 ---
 
@@ -59,7 +96,9 @@ Experienced in large enterprise legacy systems, batch operations, reverse engine
 
 ```text
 linux-infra-lab
+├─ compose.yaml
 ├─ docs
+├─ nginx
 ├─ scripts
 ├─ screenshots
 └─ README.md
@@ -72,6 +111,18 @@ linux-infra-lab
 Detailed documentation is available in `/docs`
 
 詳細內容整理於 `/docs`
+
+Current documents:
+
+* install.md
+* network.md
+* security.md
+* services.md
+* troubleshooting.md
+* docker.md
+* compose.md
+* reverse-proxy.md
+* healthcheck.md
 
 ---
 
