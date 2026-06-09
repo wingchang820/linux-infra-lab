@@ -22,23 +22,30 @@ Experienced in large enterprise legacy systems, batch operations, reverse engine
 * Firewall Management (firewalld)
 * Networking Fundamentals
 * Service Management
-* Web Service Deployment
-* Service Validation
-* Health Check Automation
-* Scheduled Tasks (cron)
-* Log Rotation (logrotate)
+* Nginx
 * Docker
 * Docker Compose
 * Reverse Proxy
-* Container Health Monitoring
+* Health Check Monitoring
+* Load Balancing
 * Troubleshooting
 
 ---
 
-## Planned Architecture ｜ 架構
+## Architecture ｜ 架構
 
-* server1 : Admin / Web Server
-* server2 : Client / Test Node
+```text
+Client
+  ↓
+Proxy
+  ├── Web1
+  └── Web2
+```
+
+Infrastructure:
+
+* server1 : Admin / Docker Host / Reverse Proxy
+* server2 : Client / Validation Node
 * Rocky Linux x2
 * NAT + Host-only Network
 
@@ -63,11 +70,11 @@ Experienced in large enterprise legacy systems, batch operations, reverse engine
 
 ### Web Services
 
-* Nginx web service deployment
-* Service validation and troubleshooting
-* Automated health check scripts
+* Nginx deployment and validation
+* Health check automation
 * Scheduled monitoring with cron
 * Log maintenance with logrotate
+* Basic troubleshooting workflow
 
 ### Container Platform
 
@@ -80,8 +87,8 @@ Experienced in large enterprise legacy systems, batch operations, reverse engine
 ### Traffic Management
 
 * Nginx Reverse Proxy
-* Proxy-to-backend routing
-* Cross-host service validation
+* Backend traffic routing
+* Load balancing across multiple containers
 
 ### Monitoring
 
@@ -98,7 +105,6 @@ Experienced in large enterprise legacy systems, batch operations, reverse engine
 linux-infra-lab
 ├─ compose.yaml
 ├─ docs
-├─ nginx
 ├─ scripts
 ├─ screenshots
 └─ README.md
@@ -108,9 +114,7 @@ linux-infra-lab
 
 ## Documents ｜ 文件
 
-Detailed documentation is available in `/docs`
-
-詳細內容整理於 `/docs`
+Detailed documentation is available in `/docs`.
 
 Current documents:
 
@@ -123,6 +127,7 @@ Current documents:
 * compose.md
 * reverse-proxy.md
 * healthcheck.md
+* load-balancing.md
 
 ---
 
