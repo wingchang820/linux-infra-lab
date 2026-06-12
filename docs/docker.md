@@ -1,17 +1,14 @@
 # Container Platform Operations
 
-## Validation Goal
+## Overview
 
-Deploy, operate, monitor, and validate a containerized web platform using Docker and Docker Compose within the infrastructure lab environment.
-
----
+This lab demonstrates deployment, operation, monitoring, and recovery of a containerized web platform using Docker and Docker Compose.
 
 ## Environment
 
 | Component        | Value            |
 | ---------------- | ---------------- |
-| Host             | server1          |
-| OS               | Rocky Linux 10.1 |
+| Host OS          | Rocky Linux 10.1 |
 | Runtime          | Docker Engine CE |
 | Orchestration    | Docker Compose   |
 | Reverse Proxy    | nginx            |
@@ -19,293 +16,288 @@ Deploy, operate, monitor, and validate a containerized web platform using Docker
 
 ---
 
-# Docker Engine Installation
+# Architecture
 
-## Add Docker Repository
-
-```bash
-sudo dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo
+```text
+Client
+  ↓
+Reverse Proxy (nginx)
+  ↓
+ ┌─────┴─────┐
+web1       web2
 ```
 
-## Install Docker Engine
+Capabilities demonstrated:
 
-```bash
-sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-```
-
-## Enable Docker Service
-
-```bash
-sudo systemctl enable --now docker
-```
+* Container deployment
+* Docker Compose operations
+* Reverse proxy routing
+* Health monitoring
+* Restart policy
+* Load balancing
+* Service observability
+* Failure recovery
 
 ---
 
 # Docker Runtime Validation
 
-## Verify Engine
+Validate Docker Engine functionality.
 
 ```bash
 docker version
-```
-
-## Validate Runtime
-
-```bash
 docker run hello-world
-```
-
-## Verify Images
-
-```bash
 docker images
 ```
 
-## Validation Result
+Validated:
 
 * Docker daemon operational
 * Container runtime functional
-* Image download successful
-* Local image cache available
+* Image management functional
 
 ---
 
-# Single Container Deployment
+# Container Operations
 
-## Pull nginx Image
-
-```bash
-docker pull nginx
-```
-
-## Deploy Container
+Deploy and manage containerized services.
 
 ```bash
 docker run -d --name web1 -p 8080:80 nginx
-```
 
-## Validate Service
-
-```bash
 docker ps
-curl localhost:8080
-```
-
-## Cross-Host Validation
-
-From server2:
-
-```bash
-curl 192.168.132.10:8080
-```
-
-## Validation Result
-
-* Container running successfully
-* HTTP service reachable
-* Port mapping operational
-* Cross-host validation successful
-
----
-
-# Container Lifecycle Operations
-
-## View Logs
-
-```bash
 docker logs web1
-```
 
-## Stop Container
-
-```bash
 docker stop web1
-```
-
-## Start Container
-
-```bash
 docker start web1
 ```
 
-## Validate State
+Validated:
 
-```bash
-docker ps -a
-```
-
-## Validation Result
-
-* Running state verified
-* Stopped state verified
-* Lifecycle operations validated
+* Container lifecycle management
+* Port mapping
+* Runtime visibility
 
 ---
 
-# Docker Compose Deployment
+# Docker Compose Operations
 
-## Deploy Compose Environment
+Manage multi-container environments.
 
 ```bash
 docker compose up -d
-```
-
-## Verify Services
-
-```bash
 docker compose ps
-```
-
-## Remove Environment
-
-```bash
 docker compose down
 ```
 
-## Validation Result
+Validated:
 
-* Declarative deployment operational
-* Repeatable environment creation validated
-* Multi-container management functional
+* Declarative deployment
+* Repeatable environment creation
+* Multi-service management
 
 ---
 
-# Reverse Proxy Architecture
+# Reverse Proxy Validation
 
-## Architecture
+Client requests are routed through nginx to backend containers.
 
-```text
-Client
-  ↓
-Reverse Proxy
-  ↓
- ┌─────┴─────┐
-web1       web2
-```
-
-## Validation
+Validation:
 
 ```bash
 curl http://192.168.132.10:8080
 ```
 
-## Validation Result
+Validated:
 
-* Reverse proxy routing operational
-* Backend services reachable
-* Traffic successfully forwarded
+* Reverse proxy routing
+* Backend service accessibility
+* Cross-host communication
 
 ---
 
-# Container Health Check
+# Health Monitoring
 
-## Verify Health Status
+Container health status is monitored independently from runtime status.
+
+Validation:
 
 ```bash
 docker compose ps
-```
-
-## Inspect Health Information
-
-```bash
 docker inspect proxy
 ```
 
-## Validation Result
+Validated:
 
-* Health monitoring enabled
-* Healthy state visible
-* Service health separated from container runtime state
+* Health check integration
+* Service health visibility
+
+Key concept:
+
+```text
+Container Running
+≠
+Service Healthy
+```
 
 ---
 
-# Restart Policy Validation
+# Restart Policy
 
-## Configuration
+Automatic service recovery configuration.
+
+Configuration:
 
 ```yaml
 restart: unless-stopped
 ```
 
-## Validation Result
+Validated:
 
-* Automatic recovery policy configured
-* Service resilience improved
-* Container restart behavior validated
+* Service resilience
+* Automatic restart behavior
 
 ---
 
-# Load Balancing Validation
+# Load Balancing
 
-## Architecture
+Traffic distribution across multiple backend containers.
 
-```text
-Client
-  ↓
-Proxy
-  ↓
- ┌─────┴─────┐
-web1       web2
-```
-
-## Validation
-
-Repeated requests:
+Validation:
 
 ```bash
-curl http://192.168.132.10:8080
+for i in {1..5}; do curl http://192.168.132.10:8080; echo; done
 ```
 
-## Validation Result
+Example result:
 
-* Requests distributed across backend containers
-* Multi-service architecture operational
-* Load balancing behavior validated
+```text
+Hello from WEB1 container
+Hello from WEB2 container
+Hello from WEB1 container
+```
+
+Validated:
+
+* Request distribution
+* Multi-backend architecture
 
 ---
 
-# Container Monitoring & Visibility
+# Observability
 
-## Service Status
+Monitor service status, resource usage, and application logs.
+
+Validation:
 
 ```bash
 docker compose ps
-```
 
-## Container Status
-
-```bash
 docker ps --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
-```
 
-## Resource Monitoring
-
-```bash
 docker stats --no-stream
-```
 
-## Log Monitoring
-
-```bash
 docker logs --tail 0 -f proxy
 ```
 
-## Cross-Host Validation
+Validated:
 
-From server2:
+* Service visibility
+* Health visibility
+* Resource visibility
+* Log visibility
+
+---
+
+# Failure Simulation & Recovery
+
+## Backend Failure
+
+Simulated failure:
+
+```bash
+docker stop web1
+```
+
+Observed:
+
+```text
+proxy Up
+web2 Up
+web1 Exited
+```
+
+Proxy log example:
+
+```text
+connect() failed
+No route to host
+```
+
+Service remained available through the remaining backend.
+
+Recovery:
+
+```bash
+docker start web1
+```
+
+Validated:
+
+* Backend failure detection
+* Log-based troubleshooting
+* Service continuity
+* Recovery validation
+
+---
+
+## Proxy Failure
+
+Simulated failure:
+
+```bash
+docker stop proxy
+```
+
+Observed:
+
+```text
+proxy Exited
+web1 Up
+web2 Up
+```
+
+Client validation:
 
 ```bash
 curl http://192.168.132.10:8080
 ```
 
-## Validation Result
+Result:
 
-* Service status observable
-* Container health observable
-* Resource usage observable
-* Proxy access logs observable
-* Client traffic visible in logs
-* Health check activity visible in logs
+```text
+Failed to connect
+```
+
+Recovery:
+
+```bash
+docker start proxy
+```
+
+Validated:
+
+* Proxy as single entry point
+* Service outage detection
+* Recovery validation
+
+Key concept:
+
+```text
+Backend Redundancy
+≠
+Platform Availability
+```
 
 ---
 
@@ -315,24 +307,11 @@ curl http://192.168.132.10:8080
 * Container Lifecycle Management
 * Docker Compose Operations
 * Reverse Proxy Deployment
-* Health Check Monitoring
+* Health Monitoring
 * Restart Policy Configuration
-* Load Balancing Validation
-* Container Observability
+* Load Balancing
+* Service Observability
+* Failure Simulation
+* Recovery Validation
 * Cross-Host Service Validation
-* Basic Platform Troubleshooting
-
----
-
-# Key Operational Concepts
-
-* Images act as reusable deployment templates
-* Containers are runtime instances
-* Compose provides declarative deployment
-* Reverse proxies separate client access from backend services
-* Running containers are not necessarily healthy services
-* Health checks improve service visibility
-* Restart policies improve resilience
-* Logs provide operational visibility
-* Monitoring enables faster troubleshooting
-* Infrastructure validation should include cross-host testing
+* Basic Troubleshooting
